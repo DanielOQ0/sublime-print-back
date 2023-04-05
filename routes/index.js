@@ -1,4 +1,5 @@
 import userRouter from './users.js'
+import userRouter from './auth.js'
 import express from 'express'
 
 let router = express.Router()
