@@ -5,15 +5,11 @@ const schema = Joi.object({
     name: Joi
         .string()
         .required()
-<<<<<<< HEAD
         .min(4)
-=======
-        .min(3)
->>>>>>> cccdc24a2c5df2b8be0fec6f8a64064c87ac8283
         .max(25)
         .message({
             'string.empty':'Name is required',
-            'string.min':'Name must be at least 3 characters',
+            'string.min':'Name must be at least 4 characters',
             'string.max': 'Name must be 25 characters long max',
             'any.required': 'Name is required'
         }),
