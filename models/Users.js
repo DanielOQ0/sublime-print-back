@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema(
 {
-    name: { type: String, required: true},
+    name: { type: String, required: false}, // si esta en true no anda signup
     email: { type: String, required: true },
     password: { type: String, required: true },
     phone: { type: String },
@@ -16,6 +16,6 @@ timestamps: true
 }
 )
 
-const User = mongoose.model('User',schema)
+const User = mongoose.model('Users',schema)
 
 export default User
