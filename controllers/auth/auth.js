@@ -13,37 +13,42 @@ const transporter = nodemailer.createTransport({
     },
 });
 const controller = {
-
     sign_up: async (req, res, next) => {
-        req.body.is_online = false
-        req.body.is_admin = false
-        req.body.is_author = false
-        req.body.is_company = false
-        req.body.is_verified = false
-        req.body.verify_code = Crypto.randomBytes(10).toString('hex')
-        req.body.password = bcryptjs.hashSync(req.body.password, 10)
+        // Validar datos de entrada
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email and password are required'
+            })
+        }
+
         try {
-            await User.create(req.body)
+            // Generar código de verificación y hashear la contraseña
+            const verify_code = Crypto.randomBytes(10).toString('hex')
+            const password = bcryptjs.hashSync(req.body.password, 10)
+
+            // Crear nuevo usuario
+            await User.create({
+                email: req.body.email,
+                is_online: false,
+                is_admin: false,
+                is_verified: false,
+                verify_code,
+                password
+            })
+
+            // Enviar correo electrónico de verificación
             const message = {
                 from: process.env.SMTP_USER,
                 to: req.body.email,
-                subject: "Verifica tu cuenta",
-                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: http://localhost:8000/auth/verify/${req.body.verify_code}`,
-            };
-            transporter.sendMail(message, (error, info) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(
-                        "Correo electrónico de verificación enviado: " + info.response
-                    );
-                }
-            });
-
+                subject: 'Verifica tu cuenta',
+                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: http://localhost:8000/auth/verify/${verify_code}`
+            }
+            transporter.sendMail(message)
 
             return res.status(200).json({
-                succes: true,
-                message: 'user registered!'
+                success: true,
+                message: 'User registered!'
             })
         } catch (error) {
             next(error)
@@ -53,11 +58,11 @@ const controller = {
     sign_in: async (req, res, next) => {
         try {
             let user = await User.findOneAndUpdate(
-                { email: req.user.email }, //parametro de busqueda
-                { is_online: true }, //parámetro a modificar
-                { new: true } //para que devuelva el objeto modificado
+                { email: req.user.email },
+                { is_online: true },
+                { new: true }
             )
-            user.password = null //para proteger la contraseña
+            user.password = null
             const token = jsonwebtoken.sign(
                 { id: user._id },
                 process.env.SECRET,
@@ -65,7 +70,7 @@ const controller = {
             )
             return res.status(200).json({
                 succes: true,
-                message: 'logged in user!',
+                message: 'Logged in user!',
                 user,
                 token
             })
