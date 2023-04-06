@@ -1,17 +1,18 @@
 const validator = (schema) => [
-    (req,res,netx) => {
-        const validation = schema.validate(req.boy, { abortEarly: true})
-        if (validation.error){
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: validation.error.details.map(error => error.message)
-                })
+    (req, res, next) => {
+        
+        const validation = schema.validate(req.body, {abortEarly:false})
+        //console.log(validation.error)
+        console.log(validation.error?.details) //acá es donde están todos los errores de validacion
+        if (validation.error) {
+            console.log(req.body) 
+            return res.status(400).json({
+                success: false,
+                message: validation.error.details.map((error)=>error.message)
+            })
         }
-        return netx()
+        return next()
     }
-
 ]
 
 export default validator
