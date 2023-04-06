@@ -1,4 +1,3 @@
-
 const validator = (schema) => [
     (req,res,netx) => {
         const validation = schema.validate(req.boy, { abortEarly: true})

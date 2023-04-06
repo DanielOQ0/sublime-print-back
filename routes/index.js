@@ -1,15 +1,10 @@
-import userRouter from './users.js'
+import userRouter from './auth.js'
 import express from 'express'
-
-let router = express.Router()
-
+let router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('Running Server');
-});
+router.get('/', function(req, res, next) {res.render('index', { title: 'Express' });});
 
-router.use('/auth', userRouter)
+router.use('/auth',userRouter)
 
 export default router
-
