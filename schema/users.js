@@ -5,7 +5,7 @@ const schema = Joi.object({
     name: Joi
         .string()
         .required()
-        .min(4)
+        .min(3)
         .max(25)
         .message({
             'string.empty':'Name is required',

@@ -3,8 +3,6 @@ import Crypto from 'crypto'
 import bcryptjs from 'bcryptjs'
 import jsonwebtoken from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
-
-
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -62,11 +60,11 @@ const controller = {
     sign_in: async (req, res, next) => {
         try {
             let user = await User.findOneAndUpdate(
-                { email: req.user.email },
-                { is_online: true },
-                { new: true }
+                { email: req.user.email }, //parametro de busqueda
+                { is_online: true }, //parámetro a modificar
+                { new: true } //para que devuelva el objeto modificado
             )
-            user.password = null
+            user.password = null //para proteger la contraseña
             const token = jsonwebtoken.sign(
                 { id: user._id },
                 process.env.SECRET,
@@ -74,7 +72,7 @@ const controller = {
             )
             return res.status(200).json({
                 succes: true,
-                message: 'Logged in user!',
+                message: 'logged in user!',
                 user,
                 token
             })
