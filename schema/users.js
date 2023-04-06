@@ -9,7 +9,7 @@ const schema = Joi.object({
         .max(25)
         .message({
             'string.empty':'Name is required',
-            'string.min':'Name must be at least 3 characters',
+            'string.min':'Name must be at least 4 characters',
             'string.max': 'Name must be 25 characters long max',
             'any.required': 'Name is required'
         }),
