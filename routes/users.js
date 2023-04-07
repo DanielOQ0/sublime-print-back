@@ -9,8 +9,10 @@ import accountHasBeenVerified from '../middlewares/accountHasBeenVerified.js'
 import passwordIsOk from '../middlewares/passwordIsOk.js'
 import passport from '../middlewares/passport.js'
 import isVerify from '../controllers/auth/verify.js'
+import accountExists from '../middlewares/accountExists.js'
+import user_update from '../schema/userUpdate.js'
 
-const {sign_up, sign_in, sign_out, sign_in_token} = controller
+const {sign_up, sign_in, sign_out, sign_in_token, getAll, getOne, update, destroy} = controller
 const {verify} = isVerify
 
 const router = express.Router();
@@ -20,5 +22,9 @@ router.post('/signin', validator(schema_signin), accountExistsSignIn,accountHasB
 router.post('/signout', passport.authenticate('jwt',{session:false}), sign_out) 
 router.post('/signintoken', passport.authenticate('jwt',{session:false}), sign_in_token)
 router.get( '/verify/:verify_code', verify)
+router.get('/', getAll )
+router.get('/:id', getOne )
+router.put('/:id', validator(user_update), accountExists, update )
+router.delete('/:id', destroy)
 
 export default router;
