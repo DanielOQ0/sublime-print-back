@@ -8,7 +8,6 @@ const schema = Joi.object({
 
     name: Joi
         .string()
-        .required()
         .min(4)
         .max(25)
         .message({
@@ -34,7 +33,6 @@ const schema = Joi.object({
     
     price: Joi
         .number()
-        .required()
         .min(0)
         .positive()
         .message({
@@ -46,7 +44,6 @@ const schema = Joi.object({
     
     stock: Joi
         .number()
-        .required()
         .min(0)
         .positive()
         .message({

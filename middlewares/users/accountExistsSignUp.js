@@ -1,4 +1,4 @@
-import User from '../models/Users.js'
+import User from '../../models/Users.js'
 
 async function accountExistsSignUp(req,res,next) {
     const user = await User.findOne({email: req.body.email})
