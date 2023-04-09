@@ -1,4 +1,4 @@
-import User from "../models/Users.js";
+import User from "../../models/Users.js";
 
 async function accountExists(req,res,next) {
 

@@ -150,14 +150,13 @@ const controller = {
         try {
             let user = await User.findByIdAndUpdate( 
                 req.params.id,
-                req.body,
-                { new: true}
+                req.body
                 )
             if ( user ){
                 return res 
                     .status(200)
                     .json({
-                        user
+                        message: 'User Successfully Updated',
                     })
             }
         } catch (error) {
