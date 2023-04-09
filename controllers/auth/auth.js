@@ -44,7 +44,7 @@ const controller = {
                 from: process.env.SMTP_USER,
                 to: req.body.email,
                 subject: 'Verifica tu cuenta',
-                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: http://localhost:8000/auth/verify/${verify_code}`
+                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: http://localhost:8080/api/users/verify/${verify_code}`
             }
             transporter.sendMail(message)
 
