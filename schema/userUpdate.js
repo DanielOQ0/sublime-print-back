@@ -4,7 +4,6 @@ const schema = Joi.object({
 
     name: Joi
         .string()
-        .required()
         .min(3)
         .max(25)
         .message({
@@ -16,7 +15,6 @@ const schema = Joi.object({
 
     email: Joi
         .string()
-        .required()
         .min(8)
         .email({ minDomainSegments: 2 })
         .message({
@@ -28,7 +26,6 @@ const schema = Joi.object({
     
     password: Joi
         .string()
-        .required()
         .min(8)
         .max(25)
         .message({

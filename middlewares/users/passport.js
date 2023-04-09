@@ -1,6 +1,6 @@
 import passport from "passport"
 import passportJwt from "passport-jwt"
-import User from "../models/Users.js"
+import User from "../../models/Users.js"
 
 passport.use(
     new passportJwt.Strategy({

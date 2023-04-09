@@ -1,10 +1,19 @@
-import userRouter from './users.js'
 import express from 'express'
+import userRouter from './users.js'
+import categoryRouter from './categories.js'
+import productRouter from './products.js'
+
+
+
+
 let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {res.render('index', { title: 'Express' });});
 
 router.use('/users',userRouter)
+router.use('/categories', categoryRouter)
+router.use('/products', productRouter)
+
 
 export default router
