@@ -22,7 +22,7 @@ const controller = {
 
     getAll: async ( req ,res, next ) => {
         let consultas = {};
-        let sort = {};
+        let sort = {rating : -1};
         let pagination = {
             page: 1,
             limit: 6,
