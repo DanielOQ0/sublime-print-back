@@ -20,7 +20,7 @@ const controller = {
         }
     },
 
-    getAll: async ( req,res, next ) => {
+    getAll: async ( req ,res, next ) => {
         try {
             let products = await Product.find()
             if ( products ){
