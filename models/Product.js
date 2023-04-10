@@ -7,8 +7,10 @@ const schema = new mongoose.Schema(
         image: { type: String, required: false },
         price: { type: Number, required: true },
         stock: { type: Number, required: true },
-        size: { type: Array, required: false },
-        color: { type: Array, required: false },
+        sizes: { type: Array, required: false },
+        rating: {type:Number, required: false},
+        reviewCount: {type:Number, required: false},
+        colors: { type: Array, required: false },
         category_id: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }] //  permite la selección de varias categorías al crear o actualizar un producto
         },{
         timestamps: true
