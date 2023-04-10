@@ -64,12 +64,8 @@ const controller = {
 
             let products = await Product.find()
             .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
-<<<<<<< HEAD
             .limit(pagination.limit > 0 ? pagination.limit : 0)
-            .sort({ title: 1 })
-=======
-            .limit(pagination.limit > 0 ? pagination.limit : 0);
->>>>>>> 5da1824696213f566df3c50eda09854f8f9f8acf
+            .sort(sort)
             if ( products.length > 0 ){
                 return res
                     .status(200)
