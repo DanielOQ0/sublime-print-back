@@ -51,7 +51,7 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/mug.jpg",
         price: 115,
         stock: 50,
-        size: null,
+        size: [],
         category_id: "64334f59606584c1846f29db"
     },
     {
@@ -94,7 +94,7 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/keychain.jpg",
         price: 95,
         stock: 100,
-        size: null,
+        size: [],
         category_id: "64334feeb73f4a5473ad7de6"
     },
     {
@@ -125,7 +125,7 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/mousepad.jpg",
         price: 120,
         stock: 25,
-        size: null,
+        size: [],
         category_id: "643350b84062430e52994b40"
     },
     {
@@ -134,7 +134,7 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/WaterBottle.jpg",
         price: 120,
         stock: 15,
-        size: null,
+        size: [],
         category_id: "643350fccc2f6aa119952035"
     },
     {
@@ -143,7 +143,7 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/Backpack.jpg",
         price: 340,
         stock: 15,
-        size: null,
+        size: [],
         color: [
             { name: "White", class: "bg-white" , selectedClass: "ring-gray-400"},
             { name: "Gray", class: "bg-gray-200" , selectedClass: "ring-gray-400"},
