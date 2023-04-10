@@ -21,14 +21,35 @@ const controller = {
     },
 
     getAll: async ( req ,res, next ) => {
+        let consultas = {};
+        let pagination = {
+          page: 1,
+          limit: 6,
+        };
+        console.log(req.query);
+        if (req.query.page) {
+          pagination.page = req.query.page;
+        }
+        if (req.query.quantity) {
+          pagination.limit = req.query.quantity;
+        }
         try {
+            let count = await Product.countDocuments()
+            .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
+            .limit(pagination.limit > 0 ? pagination.limit : 0);
+
             let products = await Product.find()
-            if ( products ){
+            .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
+            .limit(pagination.limit > 0 ? pagination.limit : 0);
+            if ( products.length > 0 ){
                 return res
                     .status(200)
                     .json({
-                        products
+                        products: products,
+                        count:count
                     })
+            }else {
+                return res.status(404).json({ message: "Not more products" });
             }
         } catch (error) {
             next(error)
