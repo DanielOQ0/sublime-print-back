@@ -5,16 +5,18 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/t-shirtWhite.jpg",
         price: 100,
         stock: 10,
-        size: [
-            { name: "XS", instock: true },
-            { name: "S", instock: true  },
-            { name: "M", instock: true  },
-            { name: "L", instock: true  },
-            { name: "XL", instock: false},
-            { name: "XXL", instock: true }, 
-            { name: "XXXL", instock: false }
+        rating: 3.9,
+        reviewCount: 117,
+        sizes: [
+            { name: "XS", inStock: true },
+            { name: "S", inStock: true  },
+            { name: "M", inStock: true  },
+            { name: "L", inStock: true  },
+            { name: "XL", inStock: false},
+            { name: "XXL", inStock: true }, 
+            { name: "XXXL", inStock: false }
         ],
-        color: [
+        colors: [
             { name: "White", class: "bg-white" , selectedClass: "ring-gray-400"},
             { name: "Gray", class: "bg-gray-200" , selectedClass: "ring-gray-400"},
             {name: "Black", class: "bg-gray-900" , selectedClass: "ring-gray-900"}
@@ -28,16 +30,18 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/t-shirt.jpg",
         price: 250,
         stock: 12,
-        size: [
-            { name: "XS", instock: true },
-            { name: "S", instock: true  },
-            { name: "M", instock: true  },
-            { name: "L", instock: true  },
-            { name: "XL", instock: false},
-            { name: "XXL", instock: true }, 
-            { name: "XXXL", instock: false }
+        rating: 3.7,
+        reviewCount: 82,
+        sizes: [
+            { name: "XS", inStock: true },
+            { name: "S", inStock: true  },
+            { name: "M", inStock: true  },
+            { name: "L", inStock: true  },
+            { name: "XL", inStock: false},
+            { name: "XXL", inStock: true }, 
+            { name: "XXXL", inStock: false }
         ],
-        color: [
+        colors: [
             { name: "White", class: "bg-white" , selectedClass: "ring-gray-400"},
             { name: "Gray", class: "bg-gray-200" , selectedClass: "ring-gray-400"},
             {name: "Black", class: "bg-gray-900" , selectedClass: "ring-gray-900"}
@@ -51,7 +55,9 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/mug.jpg",
         price: 115,
         stock: 50,
-        size: [],
+        rating: 4.5,
+        reviewCount: 25,
+        sizes: [],
         category_id: "64334f59606584c1846f29db"
     },
     {
@@ -60,7 +66,9 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/3mug.jpg",
         price: 235,
         stock: 8,
-        size: ["Standard"],
+        rating: 4.2,
+        reviewCount: 34,
+        sizes: [{name:"Standard", inStock: true}],
         category_id: "64334f59606584c1846f29db"
     },
 
@@ -70,9 +78,11 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/cap.jpg",
         price: 125,
         stock: 20,
-        size: [
-            { name: "S/M", instock: true },
-            { name: "L/XL", instock: true  }, 
+        rating: 4.0,
+        reviewCount: 97,
+        sizes: [
+            { name: "S/M", inStock: true },
+            { name: "L/XL", inStock: true  }, 
         ],
         category_id: "64334fb19cd5877e65819b12"
     },
@@ -82,9 +92,11 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/3cap.jpg",
         price: 260,
         stock: 5,
-        size: [
-            { name: "S/M", instock: true },
-            { name: "L/XL", instock: true  },
+        rating: 3.9,
+        reviewCount: 212,
+        sizes: [
+            { name: "S/M", inStock: true },
+            { name: "L/XL", inStock: true  },
         ],
         category_id: "64334fb19cd5877e65819b12"
     },
@@ -94,7 +106,9 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/keychain.jpg",
         price: 95,
         stock: 100,
-        size: [],
+        rating: 4.3,
+        reviewCount: 75,
+        sizes: [],
         category_id: "64334feeb73f4a5473ad7de6"
     },
     {
@@ -103,14 +117,16 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/outfitpack.jpg",
         price: 280,
         stock: 7,
-        size: [
-            { name: "XS", instock: true },
-            { name: "S", instock: true  },
-            { name: "M", instock: true  },
-            { name: "L", instock: true  },
-            { name: "XL", instock: false},
-            { name: "XXL", instock: true }, 
-            { name: "XXXL", instock: false }
+        rating: 4.1,
+        reviewCount: 134,
+        sizes: [
+            { name: "XS", inStock: true },
+            { name: "S", inStock: true  },
+            { name: "M", inStock: true  },
+            { name: "L", inStock: true  },
+            { name: "XL", inStock: false},
+            { name: "XXL", inStock: true }, 
+            { name: "XXXL", inStock: false }
         ],
         color: [
             { name: "White", class: "bg-white" , selectedClass: "ring-gray-400"},
@@ -125,7 +141,9 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/mousepad.jpg",
         price: 120,
         stock: 25,
-        size: [],
+        rating: 3.5,
+        reviewCount: 305,
+        sizes: [],
         category_id: "643350b84062430e52994b40"
     },
     {
@@ -134,7 +152,9 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/WaterBottle.jpg",
         price: 120,
         stock: 15,
-        size: [],
+        rating: 4.0,
+        reviewCount: 117,
+        sizes: [],
         category_id: "643350fccc2f6aa119952035"
     },
     {
@@ -143,8 +163,10 @@ export let products = [
         image: "https://sublimeprint.nyc3.digitaloceanspaces.com/Backpack.jpg",
         price: 340,
         stock: 15,
-        size: [],
-        color: [
+        rating: 3.8,
+        reviewCount: 68,
+        sizes: [],
+        colors: [
             { name: "White", class: "bg-white" , selectedClass: "ring-gray-400"},
             { name: "Gray", class: "bg-gray-200" , selectedClass: "ring-gray-400"},
             {name: "Black", class: "bg-gray-900" , selectedClass: "ring-gray-900"}

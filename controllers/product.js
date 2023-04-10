@@ -22,16 +22,40 @@ const controller = {
 
     getAll: async ( req ,res, next ) => {
         let consultas = {};
+        let sort = {};
         let pagination = {
-          page: 1,
-          limit: 6,
+            page: 1,
+            limit: 6,
         };
-        console.log(req.query);
+        //if(req.query.popular){
+        //    sort.rating = -1
+        //}
+        ///filtros sort
+        if(req.query.rating){
+            sort.rating = -1
+        }
+        if(req.query.newest){
+            sort.createdAt = -1
+        }
+        if(req.query.price){
+            sort.price = req.query.price
+        }
+        //filtro color, category y size
+        if(req.query.color){
+            
+        }
+        if (req.query.category) {
+            consultas.category_id = req.query.category.split(",");
+        }
+        if(req.query.size){
+            
+        }
+        //paginacion y limites
         if (req.query.page) {
-          pagination.page = req.query.page;
+            pagination.page = req.query.page;
         }
         if (req.query.quantity) {
-          pagination.limit = req.query.quantity;
+            pagination.limit = req.query.quantity;
         }
         try {
             let count = await Product.countDocuments()
@@ -40,7 +64,12 @@ const controller = {
 
             let products = await Product.find()
             .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
+<<<<<<< HEAD
+            .limit(pagination.limit > 0 ? pagination.limit : 0)
+            .sort({ title: 1 })
+=======
             .limit(pagination.limit > 0 ? pagination.limit : 0);
+>>>>>>> 5da1824696213f566df3c50eda09854f8f9f8acf
             if ( products.length > 0 ){
                 return res
                     .status(200)
