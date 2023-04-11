@@ -6,11 +6,12 @@ const controller = {
     create: (req, res) => {
 
         let data = req.body[0]
+        console.log(data)
 
         let preference = {
             items: [
                 {
-                    id: data.id,
+                    id: data._id,
                     title: data.name,
                     currency_id: "ARS",
                     unit_price: data.price,
