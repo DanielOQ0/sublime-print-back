@@ -48,11 +48,12 @@ const controller = {
             }
             transporter.sendMail(message)
 
-            return res.status(200).json({
+            return res.status(201).json({
                 success: true,
                 message: 'User registered!'
             })
         } catch (error) {
+            console.log(error)
             next(error)
         }
     },

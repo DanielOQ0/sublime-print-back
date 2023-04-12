@@ -22,9 +22,9 @@ router.post('/signin', validator(schema_signin), accountExistsSignIn,accountHasB
 router.post('/signout', passport.authenticate('jwt',{session:false}), sign_out) 
 router.post('/signintoken', passport.authenticate('jwt',{session:false}), sign_in_token)
 router.get( '/verify/:verify_code', verify)
-router.get('/', getAll )
-router.get('/:id', getOne )
-router.put('/:id', validator(user_update), accountExists, update )
-router.delete('/:id', destroy)
+router.get('/',passport.authenticate('jwt',{ session: false}), getAll )
+router.get('/:id',passport.authenticate('jwt',{ session: false}), getOne )
+router.put('/:id',passport.authenticate('jwt',{ session: false}), validator(user_update), accountExists, update )
+router.delete('/:id',passport.authenticate('jwt',{ session: false}), destroy)
 
 export default router;

@@ -6,7 +6,7 @@ const schema_signin = Joi.object({
     .min(8)
     .email({ minDomainSegments: 2 })
     .messages({
-    invalid: "Not an objets",
+    'invalid': "Not an objets",
     }),
   password: Joi
     .string()
@@ -14,8 +14,8 @@ const schema_signin = Joi.object({
     .min(8)
     .max(50)
     .messages({
-    "string.min": "The name must have at least 8 characteres",
-    "string.max": "The name must have a maximum of 50 characteres", 
+    "string.min": "The password must have at least 8 characteres",
+    "string.max": "The password must have a maximum of 50 characteres", 
   })
 });
 
