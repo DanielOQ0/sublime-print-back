@@ -41,14 +41,13 @@ const controller = {
         try {
             let product = await Cart.findByIdAndUpdate(
                 req.params.id,
-                { cantidad: req.body}
+                { cantidad: req.body.cantidad}
                 )
             if (product){
                 return res 
                     .status(200)
                     .json({
                         message: 'Cantidad fue actualizada',
-                        product
                     })
             }
         } catch (error) {

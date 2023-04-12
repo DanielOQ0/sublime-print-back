@@ -11,7 +11,7 @@ const router = express.Router()
 router.post('/:id', passport.authenticate('jwt',{ session: false}), create)
 router.get('/', passport.authenticate('jwt',{ session: false}), getAll)
 router.put('/:id', passport.authenticate('jwt',{ session: false}), validator(cart_update), update )
-router.delete('/deleteOne/:id', passport.authenticate('jwt', { session: false}), destroyOne )
+router.delete('/delete-one/:id', passport.authenticate('jwt', { session: false}), destroyOne )
 router.delete('/', passport.authenticate('jwt', { session: false}), destroyAll )
 
 
