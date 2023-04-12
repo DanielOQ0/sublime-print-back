@@ -53,6 +53,7 @@ const controller = {
                 message: 'User registered!'
             })
         } catch (error) {
+            console.log(error)
             next(error)
         }
     },
