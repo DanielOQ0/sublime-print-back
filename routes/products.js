@@ -4,15 +4,17 @@ import validator from '../middlewares/validator.js'
 import schema from '../schema/products.js'
 import productExists from    '../middlewares/productExists.js'
 import product_upddate from '../schema/productUpdate.js'
+import passport from '../middlewares/users/passport.js'
+
 
 const { create, getAll, getOne, update, destroy } = controller
 
 let router = express.Router()
 
-router.post('/', validator(schema), productExists, create)
-router.get('/', getAll)
-router.get('/:id', getOne )
-router.put('/:id', validator(product_upddate), productExists, update)
-router.delete('/:id', destroy)
+router.post('/',passport.authenticate('jwt',{ session: false}), validator(schema), productExists, create)
+router.get('/',passport.authenticate('jwt',{ session: false}), getAll)
+router.get('/:id',passport.authenticate('jwt',{ session: false}), getOne )
+router.put('/:id',passport.authenticate('jwt',{ session: false}), validator(product_upddate), productExists, update)
+router.delete('/:id',passport.authenticate('jwt',{ session: false}), destroy)
 
 export default router
