@@ -5,7 +5,6 @@ const schema = Joi.object({
     cantidad: Joi
     .number()
     .required()
-    .min(0)
     .positive()
     .message({
         'any.required': 'Quantity is required',
