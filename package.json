@@ -7,7 +7,6 @@
     "dev": "nodemon ./bin/www",
     "data": "node ./models/data/data",
     "data_products": "node ./models/data/products"
-
   },
   "type": "module",
   "dependencies": {
