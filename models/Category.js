@@ -5,7 +5,8 @@ const schema = new mongoose.Schema(
         name: { type: String, required: true },
         description: { type: String, required: true }
     },{
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     }
 )
 
