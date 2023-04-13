@@ -7,12 +7,15 @@ import logger from 'morgan'
 import indexRouter from './routes/index.js'
 import cors from 'cors'
 import { __dirname } from './utils.js'
+import fileUpload from 'express-fileupload';
 
 const app = express();
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(fileUpload({ tempFileDir: '/temp'}))
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());

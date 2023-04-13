@@ -13,7 +13,8 @@ const schema = new mongoose.Schema(
         colors: { type: Array, required: false },
         category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' } //  permite la selección de varias categorías al crear o actualizar un producto
         },{
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     }
 )
 

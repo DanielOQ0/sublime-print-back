@@ -12,7 +12,8 @@ const schema = new mongoose.Schema(
     is_verified: { type: Boolean, required: true },
     verify_code: { type: String, required: true }
 },{
-timestamps: true
+timestamps: true,
+versionKey: false
 }
 )
 
