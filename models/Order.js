@@ -17,7 +17,8 @@ const schema = new mongoose.Schema(
         zip: { type: String, required: true }
         }
         },{
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     }
 )
 

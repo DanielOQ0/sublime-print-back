@@ -7,7 +7,8 @@ const schema = new mongoose.Schema(
         product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
     },
     {
-        timestamps: true
+        timestamps: true,
+        versionKey: false
     }
 
 )
