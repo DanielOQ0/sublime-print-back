@@ -71,7 +71,7 @@ const controller = {
             pagination.limit = req.query.quantity;
         }
         try {
-            let count = await Product.countDocuments()
+            let count = await Product.find(consultas).countDocuments()
             let products = await Product.find(consultas)
             .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
             .limit(pagination.limit > 0 ? pagination.limit : 0)
