@@ -27,28 +27,41 @@ const controller = {
             page: 1,
             limit: 6,
         };
-        //if(req.query.popular){
-        //    sort.rating = -1
-        //}
+        //filtro title
+        if (req.query.title) {
+            consultas.title = new RegExp(req.query.title.trim(), "i");
+          }
         ///filtros sort
-        if(req.query.rating){
-            sort.rating = -1
+        if(req.query.sort){
+            switch (req.query.sort) {
+                case "rating":
+                    sort = {}
+                    sort.rating = -1
+                break;
+
+                case "newest":
+                    sort = {}
+                    sort.createdAt = -1
+                break;
+
+                case "high":
+                    sort = {}
+                    sort.price = -1
+                break;
+
+                case "low":
+                    sort = {}
+                    sort.price = 1
+                break;
+
+                default:
+                    break;
+            }
+            console.log(sort);
         }
-        if(req.query.newest){
-            sort.createdAt = -1
-        }
-        if(req.query.price){
-            sort.price = req.query.price
-        }
-        //filtro color, category y size
-        if(req.query.color){
-            
-        }
+        //filtro category 
         if (req.query.category) {
             consultas.category_id = req.query.category.split(",");
-        }
-        if(req.query.size){
-            
         }
         //paginacion y limites
         if (req.query.page) {
@@ -58,11 +71,8 @@ const controller = {
             pagination.limit = req.query.quantity;
         }
         try {
-            let count = await Product.countDocuments()
-            .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
-            .limit(pagination.limit > 0 ? pagination.limit : 0);
-
-            let products = await Product.find()
+            let count = await Product.find(consultas).countDocuments()
+            let products = await Product.find(consultas)
             .skip(pagination.page > 0 ? (pagination.page - 1) * pagination.limit : 0)
             .limit(pagination.limit > 0 ? pagination.limit : 0)
             .sort(sort)
