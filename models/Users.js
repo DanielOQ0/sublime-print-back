@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema(
 {
-    name: { type: String, required: true},
+    name: { type: String, required: false}, // si esta en true no anda signup
     email: { type: String, required: true },
     password: { type: String, required: true },
     phone: { type: String },
@@ -12,7 +12,8 @@ const schema = new mongoose.Schema(
     is_verified: { type: Boolean, required: true },
     verify_code: { type: String, required: true }
 },{
-timestamps: true
+timestamps: true,
+versionKey: false
 }
 )
 

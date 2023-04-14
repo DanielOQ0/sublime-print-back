@@ -3,6 +3,12 @@ import Crypto from 'crypto'
 import bcryptjs from 'bcryptjs'
 import jsonwebtoken from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
+import AWS from 'aws-sdk'
+import config from '../../config/uploadFile.js'
+
+const spacesEndpoint = new AWS.Endpoint(config.Enpoint)
+const s3 = new AWS.S3({ endpoint: spacesEndpoint})
+
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -12,40 +18,50 @@ const transporter = nodemailer.createTransport({
         pass: process.env.SMTP_PASS,
     },
 });
-const controller = {
 
+const controller = {
     sign_up: async (req, res, next) => {
-        req.body.is_online = false
-        req.body.is_admin = false
-        req.body.is_author = false
-        req.body.is_company = false
-        req.body.is_verified = false
-        req.body.verify_code = Crypto.randomBytes(10).toString('hex')
-        req.body.password = bcryptjs.hashSync(req.body.password, 10)
+        // Validar datos de entrada}
+        req.body.photo = "https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+        if (!req.body.email || !req.body.password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email and password are required'
+            })
+        }
+
         try {
-            await User.create(req.body)
+            // Generar código de verificación y hashear la contraseña
+            const verify_code = Crypto.randomBytes(10).toString('hex')
+            const password = bcryptjs.hashSync(req.body.password, 10)
+
+            // Crear nuevo usuario
+            await User.create({
+                name: req.body.name,
+                email: req.body.email,
+                photo: req.body.photo,
+                is_online: false,
+                is_admin: false,
+                is_verified: false,
+                verify_code,
+                password
+            })
+
+            // Enviar correo electrónico de verificación
             const message = {
                 from: process.env.SMTP_USER,
                 to: req.body.email,
-                subject: "Verifica tu cuenta",
-                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: http://localhost:8080/api/users/verify/${req.body.verify_code}`,
-            };
-            transporter.sendMail(message, (error, info) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(
-                        "Correo electrónico de verificación enviado: " + info.response
-                    );
-                }
-            });
+                subject: 'Verifica tu cuenta',
+                text: `Por favor, haz clic en el siguiente enlace para verificar tu cuenta: https://subime-print-fgbog.ondigitalocean.app/api/users/verify/${verify_code}`
+            }
+            transporter.sendMail(message)
 
-
-            return res.status(200).json({
-                succes: true,
-                message: 'user registered!'
+            return res.status(201).json({
+                success: true,
+                message: 'User registered!'
             })
         } catch (error) {
+            console.log(error)
             next(error)
         }
     },
@@ -108,6 +124,83 @@ const controller = {
             next(error)
         }
     },
+
+    getAll: async (req,res,next) => {
+        try {
+            let users = await User.find()
+            if( users ){
+                return res
+                    .status(200)
+                    .json({
+                        Users: users
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    getOne: async (req,res,next) => {
+        try {
+            let user = await User.findById( req.user._id)
+            if ( user ){
+                return res  
+                    .status(200)
+                    .json({
+                        user
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    update: async (req,res,next) => {
+
+        const { file } = req.files
+        try {
+            await s3.putObject({
+                ACL: 'public-read',
+                Bucket: config.BucketName,
+                Body: file.data,
+                Key: req.params.id
+            }).promise()
+
+            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.params.id}`
+            let user = await User.findByIdAndUpdate( 
+                req.params.id,
+                {
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    photo: urlPhoto
+                }
+                )
+            if ( user ){
+                return res 
+                    .status(200)
+                    .json({
+                        message: 'User Successfully Updated',
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    destroy: async (req,res,next) => {
+        try {
+            let user = await User.findByIdAndDelete( req.params.id )
+            if ( user){
+                return res  
+                    .status(200)
+                    .json({
+                        message: 'User Successfully Deleted'
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
 
 }
 
