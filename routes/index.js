@@ -5,6 +5,7 @@ import productRouter from './products.js'
 import paymentsRouter from "./payments.js"
 import cartRouter from './carts.js'
 import fileRouter from './fileUpload.js'
+import orderRouter from './order.js';
 
 
 
@@ -20,5 +21,5 @@ router.use('/products', productRouter)
 router.use('/payments', paymentsRouter)
 router.use('/cart', cartRouter)
 router.use('/file-upload', fileRouter)
-
+router.use('/orders', orderRouter);
 export default router

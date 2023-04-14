@@ -12,17 +12,19 @@ const controller = {
         
         const { file } = req.files        
         try {
-            await s3.putObject({
+            await s3.putObject(
+                {
                 ACL: 'public-read',
                 Bucket: config.BucketName,
                 Body: file.data,
-                Key: file.name,
+                Key: req.body.key,
             }).promise()
 
             const urlFile = `https://${config.BucketName}.${config.Enpoint}/${file.name}`
+
             let fileupload = await FileUploap.create({
                 url: urlFile,
-                key: file.name,
+                key: req.body.key,
                 title: req.body.title
             })
             return res 
@@ -34,7 +36,23 @@ const controller = {
         } catch (error) {
             next(error)
         }
+    },
 
+    destroy: async (req,res,next) => {
+        try {
+            let deletedFile = await FileUploap.findByIdAndDelete(req.params.id)
+                await s3.deleteObject({
+                    Bucket: config.BucketName,
+                    Key: deletedFile.key
+                }).promise()
+            return res  
+                .status(200)
+                .json({
+                    message: 'File successfully deleted'
+                })
+        } catch (error) {
+            next(error)
+        }
     }
 
 }
