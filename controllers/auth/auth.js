@@ -163,15 +163,14 @@ const controller = {
                 ACL: 'public-read',
                 Bucket: config.BucketName,
                 Body: file.data,
-                Key: req.params.id
+                Key: req.user.id
             }).promise()
 
-            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.params.id}`
+            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.user.id}`
             let user = await User.findByIdAndUpdate( 
-                req.params.id,
+                req.user.id,
                 {
                     name: req.body.name,
-                    phone: req.body.phone,
                     photo: urlPhoto
                 }
                 )

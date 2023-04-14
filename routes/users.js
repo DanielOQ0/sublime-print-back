@@ -24,7 +24,7 @@ router.post('/signintoken', passport.authenticate('jwt',{session:false}), sign_i
 router.get( '/verify/:verify_code', verify)
 router.get('/',passport.authenticate('jwt',{ session: false}), getAll )
 router.get('/me',passport.authenticate('jwt',{ session: false}), getOne )
-router.put('/:id',passport.authenticate('jwt',{ session: false}), validator(user_update), accountExists, update )
+router.put('/',passport.authenticate('jwt',{ session: false}), validator(user_update), accountExists, update )
 router.delete('/:id',passport.authenticate('jwt',{ session: false}), destroy)
 
 export default router;
