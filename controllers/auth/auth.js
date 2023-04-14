@@ -157,20 +157,21 @@ const controller = {
 
     update: async (req,res,next) => {
 
-        const { file } = req.files
+        // const { file } = req.files
         try {
-            await s3.putObject({
-                ACL: 'public-read',
-                Bucket: config.BucketName,
-                Body: file.data,
-                Key: req.user.id
-            }).promise()
+            // await s3.putObject({
+            //     ACL: 'public-read',
+            //     Bucket: config.BucketName,
+            //     Body: file.data,
+            //     Key: req.user.id
+            // }).promise()
 
             const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.user.id}`
             let user = await User.findByIdAndUpdate( 
                 req.user.id,
                 {
                     name: req.body.name,
+                    email: req.body.email,
                     photo: urlPhoto
                 }
                 )
