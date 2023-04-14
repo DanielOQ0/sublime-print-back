@@ -15,7 +15,8 @@ const transporter = nodemailer.createTransport({
 
 const controller = {
     sign_up: async (req, res, next) => {
-        // Validar datos de entrada
+        // Validar datos de entrada}
+        req.body.photo = "https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
         if (!req.body.email || !req.body.password) {
             return res.status(400).json({
                 success: false,
@@ -32,6 +33,7 @@ const controller = {
             await User.create({
                 name: req.body.name,
                 email: req.body.email,
+                photo: req.body.photo,
                 is_online: false,
                 is_admin: false,
                 is_verified: false,
@@ -134,7 +136,7 @@ const controller = {
 
     getOne: async (req,res,next) => {
         try {
-            let user = await User.findById( req.params.id)
+            let user = await User.findById( req.user._id)
             if ( user ){
                 return res  
                     .status(200)
