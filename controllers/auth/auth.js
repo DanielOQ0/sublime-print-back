@@ -3,6 +3,12 @@ import Crypto from 'crypto'
 import bcryptjs from 'bcryptjs'
 import jsonwebtoken from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
+import AWS from 'aws-sdk'
+import config from '../../config/uploadFile.js'
+
+const spacesEndpoint = new AWS.Endpoint(config.Enpoint)
+const s3 = new AWS.S3({ endpoint: spacesEndpoint})
+
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -150,10 +156,24 @@ const controller = {
     },
 
     update: async (req,res,next) => {
+
+        const { file } = req.files
         try {
+            await s3.putObject({
+                ACL: 'public-read',
+                Bucket: config.BucketName,
+                Body: file.data,
+                Key: req.params.id
+            }).promise()
+
+            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.params.id}`
             let user = await User.findByIdAndUpdate( 
                 req.params.id,
-                req.body
+                {
+                    name: req.body.name,
+                    phone: req.body.phone,
+                    photo: urlPhoto
+                }
                 )
             if ( user ){
                 return res 
