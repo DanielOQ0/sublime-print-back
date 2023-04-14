@@ -3,6 +3,12 @@ import Crypto from 'crypto'
 import bcryptjs from 'bcryptjs'
 import jsonwebtoken from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
+import AWS from 'aws-sdk'
+import config from '../../config/uploadFile.js'
+
+const spacesEndpoint = new AWS.Endpoint(config.Enpoint)
+const s3 = new AWS.S3({ endpoint: spacesEndpoint})
+
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -15,7 +21,8 @@ const transporter = nodemailer.createTransport({
 
 const controller = {
     sign_up: async (req, res, next) => {
-        // Validar datos de entrada
+        // Validar datos de entrada}
+        req.body.photo = "https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
         if (!req.body.email || !req.body.password) {
             return res.status(400).json({
                 success: false,
@@ -32,6 +39,7 @@ const controller = {
             await User.create({
                 name: req.body.name,
                 email: req.body.email,
+                photo: req.body.photo,
                 is_online: false,
                 is_admin: false,
                 is_verified: false,
@@ -134,7 +142,7 @@ const controller = {
 
     getOne: async (req,res,next) => {
         try {
-            let user = await User.findById( req.params.id)
+            let user = await User.findById( req.user._id)
             if ( user ){
                 return res  
                     .status(200)
@@ -148,10 +156,23 @@ const controller = {
     },
 
     update: async (req,res,next) => {
+
+        const { file } = req.files
         try {
+            await s3.putObject({
+                ACL: 'public-read',
+                Bucket: config.BucketName,
+                Body: file.data,
+                Key: req.user.id
+            }).promise()
+
+            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.user.id}`
             let user = await User.findByIdAndUpdate( 
-                req.params.id,
-                req.body
+                req.user.id,
+                {
+                    name: req.body.name,
+                    photo: urlPhoto
+                }
                 )
             if ( user ){
                 return res 

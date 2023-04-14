@@ -9,7 +9,9 @@ const controller = {
             let cart = await Cart.create({
                 cantidad: 1,
                 product_id: req.params.id,
-                user_id: user._id
+                user_id: user._id,
+                color: req.body.color,
+                size: req.body.size,
                 })   
             return res
                 .status(201)

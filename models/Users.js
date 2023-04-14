@@ -5,7 +5,6 @@ const schema = new mongoose.Schema(
     name: { type: String, required: false}, // si esta en true no anda signup
     email: { type: String, required: true },
     password: { type: String, required: true },
-    phone: { type: String },
     photo: { type: String },
     is_online: { type: Boolean, required: true },
     is_admin: { type: Boolean, required: true },
