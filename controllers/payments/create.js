@@ -5,7 +5,7 @@ mercadopago.configure({ access_token: process.env.ACCESS_TOKEN})
 const controller = {
     create: (req, res) => {
 
-        let data = req.body[0]
+        let data = req.body
         console.log(data)
 
         let preference = {
@@ -14,17 +14,16 @@ const controller = {
                     id: data._id,
                     title: data.name,
                     currency_id: "ARS",
-                    unit_price: data.price,
-                    quantity: 1
+                    unit_price: data.price
                 }
             ],
             payer: {
-                name: req.user.name
+                name: req.users.name
             },
             back_urls: {
                 success: "https://localhost:3000/store",
-                failure: "",
-                pending: "",
+                failure: "https://localhost:3000/store",
+                pending: "https://localhost:3000/store",
             },
             auto_return: "approved",
             binary_mode: true,
