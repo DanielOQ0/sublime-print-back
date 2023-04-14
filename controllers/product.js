@@ -57,7 +57,6 @@ const controller = {
                 default:
                     break;
             }
-            console.log(sort);
         }
         //filtro category 
         if (req.query.category) {
