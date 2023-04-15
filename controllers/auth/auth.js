@@ -157,33 +157,43 @@ const controller = {
 
     update: async (req,res,next) => {
 
-        //const { file } = req.files
-        try {
-            // await s3.putObject({
-            //     ACL: 'public-read',
-            //     Bucket: config.BucketName,
-            //     Body: file.data,
-            //     Key: req.user.id
-            // }).promise()
-
-            //const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.user.id}`
-            let user = await User.findByIdAndUpdate( 
-                req.user.id,
-                {
-                    name: req.body.name,
-                    //photo: urlPhoto
-                }
-                )
-            if ( user ){
-                return res 
-                    .status(200)
-                    .json({
-                        message: 'User Successfully Updated',
-                    })
+        if ( req.files ){
+            const { file } = req.files
+            try {
+                await s3.putObject({
+                    ACL: 'public-read',
+                    Bucket: config.BucketName,
+                    Body: file.data,
+                    Key: req.user.id
+                }).promise()
+            } catch (error) {
+                next(error)
             }
-        } catch (error) {
-            next(error)
         }
+        const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.user.id}`
+        // console.log(urlPhoto)
+        if (urlPhoto){
+            try {
+                let user = await User.findByIdAndUpdate( 
+                    req.user.id,
+                    {
+                        name: req.body.name,
+                        photo: urlPhoto
+                    }
+                    )
+                if ( user ){
+                    return res 
+                        .status(200)
+                        .json({
+                            message: 'User Successfully Updated',
+                        })
+                }
+            } catch (error) {
+                next(error)
+            }
+        }
+
+
     },
 
     destroy: async (req,res,next) => {
