@@ -33,9 +33,10 @@ const schema = Joi.object({
             'string.max': 'The password cannot exceed 25 characters',
             'string.empty': 'The password cannot be empty',
             'any.required': 'A password is required'
-        })
-    
+        }),
 
+    file: Joi
+        .any()
 })
 
 export default schema
