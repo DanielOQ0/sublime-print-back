@@ -5,14 +5,13 @@ mercadopago.configure({ access_token: process.env.ACCESS_TOKEN})
 const controller = {
     create: (req, res) => {
 
-        let data = req.body[0]
-        console.log(data)
+        let data = req.body
 
         let preference = {
             items: [
                 {
-                    id: data._id,
-                    title: data.name,
+                    id: data.id,
+                    title: "Productos: "+data.name.split(",").length,
                     currency_id: "ARS",
                     unit_price: data.price,
                     quantity: 1
