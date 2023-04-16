@@ -17,6 +17,18 @@ const schema = Joi.object({
             'string.max': 'Name must be 25 characters long max',
             'any.required': 'Name is required'
         }),
+    
+    key: Joi
+        .string()
+        .required()
+        .min(4)
+        .max(25)
+        .message({
+            'string.empty':'Key is required',
+            'string.min':'Key must be at least 4 characters',
+            'string.max': 'Key must be 25 characters long max',
+            'any.required': 'Key is required'
+        }),
 
     description: Joi
         .string()
@@ -54,8 +66,8 @@ const schema = Joi.object({
             'number.empty': 'Stock is required',
             'number.min': 'Stock must be more than 0',
             'number.positive': 'Stock must be a positive number',
-        })
-    
+        }),
+
 
 })
 
