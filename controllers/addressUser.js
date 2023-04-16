@@ -46,6 +46,39 @@ const controller = {
         } catch (error) {
             next(error)
         }
+    },
+
+    update: async (req,res,next) => {
+        try {
+            let address = await AddressUser.findByIdAndUpdate(
+                req.params.id,
+                req.body  
+            )
+            if (address){
+                return res  
+                    .status(200)
+                    .json({
+                        message: 'Address Successfully Updated'
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    destroyOne: async (req,res,next) => {
+        try {
+            let address = await AddressUser.findByIdAndDelete(req.params.id)
+            if (address){
+                return res  
+                    .status(200)
+                    .json({
+                        message: 'Address Successfully Deleted'
+                    })
+            }
+        } catch (error) {
+            next(error)
+        }
     }
 
 }
