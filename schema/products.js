@@ -18,32 +18,6 @@ const schema = Joi.object({
             'any.required': 'Name is required'
         }),
     
-    key: Joi
-        .string()
-        .required()
-        .min(4)
-        .max(25)
-        .message({
-            'string.empty':'Key is required',
-            'string.min':'Key must be at least 4 characters',
-            'string.max': 'Key must be 25 characters long max',
-            'any.required': 'Key is required'
-        }),
-
-    description: Joi
-        .string()
-        .min(15)
-        .max(50)
-        .message({
-            'string.empty':'Description is required',
-            'string.min':'Description must be at least 15 characters',
-            'string.max': 'Description must be 50 characters long max',
-            'any.required': 'Description is required'
-        }),
-
-    // image: Joi
-    //     .validate('2 MG', Joi.number().filesize()).value,
-    
     price: Joi
         .number()
         .required()
@@ -68,6 +42,16 @@ const schema = Joi.object({
             'number.positive': 'Stock must be a positive number',
         }),
 
+    description: Joi
+        .string()
+        .min(15)
+        .max(50)
+        .message({
+            'string.empty':'Description is required',
+            'string.min':'Description must be at least 15 characters',
+            'string.max': 'Description must be 50 characters long max',
+            'any.required': 'Description is required'
+        }),
 
 })
 
