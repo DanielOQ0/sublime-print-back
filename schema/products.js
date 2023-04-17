@@ -15,10 +15,6 @@ const schema = Joi.object({
             'any.required': 'Name is required'
         }),
     
-    // sizes: Joi
-    //     .array()
-    //     .required()
-    // ,
 
     price: Joi
         .number()
