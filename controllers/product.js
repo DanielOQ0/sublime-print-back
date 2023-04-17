@@ -19,7 +19,7 @@ const controller = {
             }).promise()
 
             const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.body.key}`
-
+            // console.log(req.body)
             let product = await Product.create({
                 name: req.body.name,
                 description: req.body.description,
