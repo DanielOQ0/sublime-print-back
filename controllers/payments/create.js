@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 const controller = {
     create: (req, res) => {
 
-        let data = req.body;
+        let data = req.body
 
         const message = {
 
