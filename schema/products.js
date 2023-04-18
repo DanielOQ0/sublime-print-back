@@ -15,6 +15,7 @@ const schema = Joi.object({
             'any.required': 'Name is required'
         }),
     
+
     price: Joi
         .number()
         .required()
@@ -38,6 +39,7 @@ const schema = Joi.object({
             'number.min': 'Stock must be more than 0',
             'number.positive': 'Stock must be a positive number',
         }),
+    
 
     description: Joi
         .string()
@@ -50,6 +52,8 @@ const schema = Joi.object({
             'any.required': 'Description is required'
         }),
 
+    key: Joi
+        .string()
 
 })
 
