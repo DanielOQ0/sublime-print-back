@@ -27,7 +27,11 @@ const controller = {
             to: req.user.email,
             subject: "Thank you for your purchase! Below we will show you the details of your order.",
             html: `<div  style=" text-align:center;" > 
+<<<<<<< HEAD
             <img  style="width: 100%; " src='https://sublimeprint.nyc3.digitaloceanspaces.com/logo.png' alt="photo" /> 
+=======
+            <img  style="width: 100%; " src="${data.id.image?data.id.image:'https://sublimeprint.nyc3.digitaloceanspaces.com/logo.png'}" alt="photo" /> 
+>>>>>>> 52f236d84485dc0965985136d145e86039320cc0
             <h3 style="font-size:20px; text-align:center">Thank you for your purchase!</h3>
             <p style="font-size:16px; text-align:center">Below we will show you the details of your order:</p>
                 <div>
