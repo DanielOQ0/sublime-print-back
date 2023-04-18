@@ -86,8 +86,8 @@ const controller = {
             limit: 6,
         };
         //filtro title
-        if (req.query.title) {
-            consultas.title = new RegExp(req.query.title.trim(), "i");
+        if (req.query.name) {
+            consultas.name= new RegExp(req.query.name.trim(), "i");
           }
         ///filtros sort
         if(req.query.sort){
