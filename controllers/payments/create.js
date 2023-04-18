@@ -31,7 +31,7 @@ const controller = {
             <h3 style="font-size:20px; text-align:center">Thank you for your purchase!</h3>
             <p style="font-size:16px; text-align:center">Below we will show you the details of your order:</p>
                 <div>
-                ${data.map((product) => `<p>${product.name}: ${product.description}: $${product.price} : quantity: ${product.quantity}</p> `).join('')}
+                
                 </div>
               </div>
 
@@ -39,6 +39,7 @@ const controller = {
             </div>`
 
         };
+
         let preference = {
             
                 items: [
@@ -61,7 +62,6 @@ const controller = {
             auto_return: "approved",
             binary_mode: true,
         };
-        console.log(preference)
 
         mercadopago.preferences
             .create(preference)
