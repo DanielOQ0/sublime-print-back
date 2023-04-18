@@ -1,8 +1,5 @@
 import Joi from "joi";
-// import BaseJoi from 'joi'
-// import { Extension } from "joi-filesize-extensions";
 
-// const Joi = BaseJoi.extend(Extension)
 
 const schema = Joi.object({
 
@@ -17,21 +14,8 @@ const schema = Joi.object({
             'string.max': 'Name must be 25 characters long max',
             'any.required': 'Name is required'
         }),
-
-    description: Joi
-        .string()
-        .min(15)
-        .max(50)
-        .message({
-            'string.empty':'Description is required',
-            'string.min':'Description must be at least 15 characters',
-            'string.max': 'Description must be 50 characters long max',
-            'any.required': 'Description is required'
-        }),
-
-    // image: Joi
-    //     .validate('2 MG', Joi.number().filesize()).value,
     
+
     price: Joi
         .number()
         .required()
@@ -54,8 +38,22 @@ const schema = Joi.object({
             'number.empty': 'Stock is required',
             'number.min': 'Stock must be more than 0',
             'number.positive': 'Stock must be a positive number',
-        })
+        }),
     
+
+    description: Joi
+        .string()
+        .min(15)
+        .max(50)
+        .message({
+            'string.empty':'Description is required',
+            'string.min':'Description must be at least 15 characters',
+            'string.max': 'Description must be 50 characters long max',
+            'any.required': 'Description is required'
+        }),
+
+    key: Joi
+        .string()
 
 })
 

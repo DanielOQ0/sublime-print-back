@@ -1,12 +1,39 @@
 import Product from '../models/Product.js'
+import AWS from 'aws-sdk'
+import config from '../config/uploadFile.js'
 
-
+const spacesEndpoint = new AWS.Endpoint(config.Enpoint)
+const s3 = new AWS.S3({ endpoint: spacesEndpoint})
 
 const controller = {
 
     create: async (req,res,next) => {
+
+        const { file } = req.files
         try {
-            let product = await Product.create( req.body )
+            await s3.putObject({
+                ACL: 'public-read',
+                Bucket: config.BucketName,
+                Body: file.data,
+                Key: req.body.key
+            }).promise()
+
+            const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.body.key}`
+            // console.log(req.body)
+            let product = await Product.create({
+                name: req.body.name,
+                description: req.body.description,
+                image: urlPhoto,
+                price: req.body.price,
+                stock: req.body.stock,
+                sizes: req.body.sizes,
+                rating: req.body.rating,
+                reviewCount: req.body.reviewCount,
+                colors: req.body.colors,
+                category_id: req.params.id,
+                key: req.body.key,
+                is_custom: false
+            })
             if ( product ){
                 return res 
                     .status(201)
@@ -16,6 +43,7 @@ const controller = {
                     })
             }
         } catch (error) {
+            console.log(error)
             next(error)
         }
     },

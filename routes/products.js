@@ -5,13 +5,14 @@ import schema from '../schema/products.js'
 import productExists from    '../middlewares/productExists.js'
 import product_upddate from '../schema/productUpdate.js'
 import passport from '../middlewares/users/passport.js'
+import fileExistis from '../middlewares/fileExists.js'
 
 
 const { create, getAll, getOne, update, destroy } = controller
 
 let router = express.Router()
 
-router.post('/',passport.authenticate('jwt',{ session: false}), validator(schema), productExists, create)
+router.post('/:id',passport.authenticate('jwt',{ session: false}), validator(schema), productExists, fileExistis, create)
 router.get('/',passport.authenticate('jwt',{ session: false}), getAll)
 router.get('/:id',passport.authenticate('jwt',{ session: false}), getOne )
 router.put('/:id',passport.authenticate('jwt',{ session: false}), validator(product_upddate), productExists, update)

@@ -6,6 +6,7 @@ import paymentsRouter from "./payments.js"
 import cartRouter from './carts.js'
 import fileRouter from './fileUpload.js'
 import orderRouter from './order.js';
+import addressUserRouter from './addressUser.js'
 
 
 
@@ -22,4 +23,6 @@ router.use('/payments', paymentsRouter)
 router.use('/cart', cartRouter)
 router.use('/file-upload', fileRouter)
 router.use('/orders', orderRouter);
+router.use('/address-user', addressUserRouter)
+
 export default router

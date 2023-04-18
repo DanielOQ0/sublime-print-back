@@ -10,16 +10,11 @@ const schema = new mongoose.Schema(
         }],
         status: { type: String, required: true, default: 'Pending' }, //  indica el estado de una orden, un pago o una solicitud.
         total_price: { type: Number, required: true },
-        shipping_address: { // almacena la direccion del pedido o entrega
-        street: { type: String, required: true },
-        city: { type: String, required: true },
-        state: { type: String, required: true },
-        zip: { type: String, required: true }
+        },
+        {
+            timestamps: true,
+            versionKey: false
         }
-        },{
-        timestamps: true,
-        versionKey: false
-    }
 )
 
 const Order = mongoose.model('Order',schema)
