@@ -7,7 +7,7 @@ const controller = {
         const { user } = req 
         try {
             let cart = await Cart.create({
-                cantidad: 1,
+                cantidad: req.body.quantity?req.body.quantity:1,
                 product_id: req.params.id,
                 user_id: user._id,
                 color: req.body.color,

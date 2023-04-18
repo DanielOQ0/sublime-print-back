@@ -19,7 +19,6 @@ const controller = {
             }).promise()
 
             const urlPhoto = `https://${config.BucketName}.${config.Enpoint}/${req.body.key}`
-
             let product = await Product.create({
                 name: req.body.name,
                 description: req.body.description,
@@ -32,7 +31,36 @@ const controller = {
                 colors: req.body.colors,
                 category_id: req.params.id,
                 key: req.body.key,
-                is_custom: false
+                is_custom: false,
+            })
+            if ( product ){
+                return res 
+                    .status(201)
+                    .json({
+                        message: 'Product Successfully Created',
+                        product
+                    })
+            }
+        } catch (error) {
+            console.log(error)
+            next(error)
+        }
+    },
+
+    createCustom: async (req,res,next) => {
+        try {
+
+            let product = await Product.create({
+                name: "Custom Shirt",
+                description: "Made by "+req.user.name,
+                image: req.body.url,
+                price: req.body.price,
+                stock: req.body.stock,
+                sizes: req.body.sizes,
+                colors: req.body.colors,
+                category_id: req.params.id,
+                is_custom: true,
+                user_id : req.user._id,
             })
             if ( product ){
                 return res 
@@ -49,7 +77,8 @@ const controller = {
     },
 
     getAll: async ( req ,res, next ) => {
-        let consultas = {};
+
+        let consultas = {is_custom:false};
         let sort = {};
         let pagination = {
             page: 1,

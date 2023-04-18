@@ -12,7 +12,8 @@ const schema = new mongoose.Schema(
         reviewCount: {type:Number, required: false},
         colors: { type: Array, required: false },
         category_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: false }, //  permite la selección de varias categorías al crear o actualizar un producto
-        is_custom: { type: Boolean}
+        is_custom: { type: Boolean},
+        user_id: { type: mongoose.Schema.Types.ObjectId ,ref: 'User', required: false },
         },{
         timestamps: true,
         versionKey: false
