@@ -8,7 +8,7 @@ import passport from '../middlewares/users/passport.js'
 import fileExistis from '../middlewares/fileExists.js'
 
 
-const { create,createCustom, getAll, getOne, update, destroy } = controller
+const { create,createCustom, getAll, getOne, update, destroy , destroy_custom} = controller
 
 let router = express.Router()
 
@@ -18,5 +18,7 @@ router.get('/',passport.authenticate('jwt',{ session: false}), getAll)
 router.get('/:id',passport.authenticate('jwt',{ session: false}), getOne )
 router.put('/:id',passport.authenticate('jwt',{ session: false}), validator(product_upddate), productExists, update)
 router.delete('/:id',passport.authenticate('jwt',{ session: false}), destroy)
+router.delete('/custom',passport.authenticate('jwt',{ session: false}), destroy_custom)
+
 
 export default router
