@@ -194,6 +194,19 @@ const controller = {
         } catch (error) {
             next(error)
         }
+    },
+
+    destroy_custom: async (req,res,next) => {
+        try {
+            await Product.deleteMany({ user_id: req.user._id} )
+            return res 
+                .status(200)
+                .json({
+                    message: 'Product Successfully Deleted!!'
+                })
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
